@@ -3,6 +3,7 @@ import face_recognition
 import numpy as np
 import os
 from datetime import datetime
+import db
 
 path = "images"
 
@@ -27,8 +28,7 @@ def findEncodings(images):
         encodeList.append(encoding)
     return encodeList
 
-
-def markAttendance(name):
+# def markAttendance(name):
     with open("attendance.csv", "r+") as f:
         myDataList = f.readlines()
         nameList = []
@@ -36,10 +36,10 @@ def markAttendance(name):
             entry = line.split(",")
             nameList.append(entry[0])
 
-        # if name not in nameList:
-        #     now = datetime.now()
-        #     dtString = now.strftime("%H:%M:%S")
-        #     f.writelines(f'\n{name},{dtString}')
+        if name not in nameList:
+            now = datetime.now()
+            dtString = now.strftime("%H:%M:%S")
+            f.writelines(f'\n{name},{dtString}')
 
         now = datetime.now()
         dtString = now.strftime("%H:%M:%S")
@@ -68,7 +68,7 @@ while True:
         matchIndex = np.argmin(face_distance)
 
         if matches[matchIndex]:
-            name = classNames[matchIndex].upper()
+            name = classNames[matchIndex]
             # print(name)
             y1, x1, y2, x2 = faceLocation
             y1, x1, y2, x2 = y1*4, x1*4, y2*4, x2*4
@@ -77,8 +77,15 @@ while True:
             cv2.putText(img, name, (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
 
-            # enter the name when found a face
-            markAttendance(name)
+            # get name when recognised a face
+            name = name.split("_")
+            firstName = name[0]
+            lastName = name[1]
+            
+            # search for the id
+            worker_id = db.find_workerId(firstName, lastName)
+            # save the worker's entrance
+            db.save_entrance(worker_id)
 
     cv2.imshow("Webcam", img)
     cv2.waitKey(1)

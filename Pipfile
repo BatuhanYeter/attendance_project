@@ -9,6 +9,8 @@ cmake = "*"
 dlib = "*"
 face-recognition = "*"
 numpy = "*"
+pyodbc = "*"
+tk = "*"
 
 [dev-packages]
 autopep8 = "*"
