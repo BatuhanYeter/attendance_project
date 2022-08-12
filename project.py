@@ -76,14 +76,9 @@ while True:
             cv2.rectangle(img, (x1, y2-35), (x2, y2), (0, 255, 0), cv2.FILLED)
             cv2.putText(img, name, (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
-
-            # get name when recognised a face
-            name = name.split("_")
-            firstName = name[0]
-            lastName = name[1]
             
             # search for the id
-            worker_id = db.find_workerId(firstName, lastName)
+            worker_id = db.find_workerId(name)
             # save the worker's entrance
             db.save_entrance(worker_id)
 

@@ -9,12 +9,12 @@ def connect():
     )
     return conn
 
-def create_user(lastName, firstName, age):
+def create_user(lastName, firstName, age, tck, photo_uuid, email, phone_number):
     conn = connect()
     cursor = conn.cursor()
     cursor.execute(
-        'insert into Workers(LastName,FirstName,Age) values(?,?,?);',
-        (lastName,firstName,age)
+        'insert into Workers(LastName,FirstName,Age,TCK,PhotoId,Email,PhoneNumber) values(?,?,?,?,?,?,?);',
+        (lastName,firstName,age,tck,photo_uuid,email,phone_number)
         ) 
     conn.commit()   
 
@@ -29,12 +29,12 @@ def save_entrance(worker_id):
     print(f'worker with id:{worker_id} has ben detected and saved.')
     
     
-def find_workerId(firstName, lastName):
+def find_workerId(photo_uuid):
     conn = connect()
     cursor = conn.cursor()
     cursor.execute(
-        'select * from Workers where lastName=? and firstName=?',
-        (lastName, firstName)           
+        'select * from Workers where PhotoId=?',
+        (photo_uuid)           
         )
     worker = cursor.fetchone()
     print(worker[0])
