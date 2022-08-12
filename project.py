@@ -78,9 +78,9 @@ while True:
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
             
             # search for the id
-            worker_id = db.find_workerId(name)
+            employer_id = db.find_employerId(name)
             # save the worker's entrance
-            db.save_entrance(worker_id)
+            db.save_entrance(employer_id)
 
     cv2.imshow("Webcam", img)
     cv2.waitKey(1)
