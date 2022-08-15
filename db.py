@@ -11,13 +11,13 @@ def connect():
     )
     return conn
 
-def create_user(lastName, firstName, age, tck, photo_uuid, email, phone_number):
+def create_user(lastName, firstName, age, tck, photo_uuid, email, phone_number, address_id):
     try:
         conn = connect()
         cursor = conn.cursor()
         cursor.execute(
-            'insert into Employers(LastName,FirstName,Age,TCK,PhotoId,Email,PhoneNumber) values(?,?,?,?,?,?,?);',
-            (lastName,firstName,age,tck,photo_uuid,email,phone_number)
+            'insert into Employers(LastName,FirstName,Age,TCK,PhotoId,Email,PhoneNumber,AddressId) values(?,?,?,?,?,?,?,?);',
+            (lastName,firstName,age,tck,photo_uuid,email,phone_number,address_id)
             ) 
         conn.commit()   
         return 1
@@ -53,14 +53,17 @@ def find_employerId(photo_uuid):
         return err
     
 def fetchAllEmployers():
-    conn = connect()
-    cursor = conn.cursor()
-    cursor.execute(
-        'select id, LastName, FirstName, Age, TCK, PhoneNumber from Employers;'         
-        )
-    employers = cursor.fetchall()
-    return employers
-        
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        cursor.execute(
+            'select id, LastName, FirstName, Age, TCK, PhoneNumber from Employers;'         
+            )
+        employers = cursor.fetchall()
+        return employers
+    except pyodbc.Error as err:
+        return err
+            
 def deleteEmployerById(id):
     try:
         conn = connect()
@@ -84,4 +87,52 @@ def deleteEmployerById(id):
         cursor.commit()
     except pyodbc.Error as err:
         return err    
+
+def getAddresses():
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            'Select * From Addresses'
+        )
+        data = cursor.fetchall()
+        return data
+    except pyodbc.Error as err:
+        return err
     
+def getAddressIdByName(name):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            'Select id From Addresses where Name=?',
+            (name)
+        )
+        id = cursor.fetchone()
+        return id[0]
+    except pyodbc.Error as err:
+        return err
+    
+def findByAddressId(id):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            'EXEC GetTempTableByAdressId @AddressId=?',
+            (id)
+        )
+        cursor.commit()
+        data = cursor.fetchall()
+        print(data)
+        return data
+    except pyodbc.Error as err:
+        return err
+
+def findAttendacesById():
+    pass
+
+def saveAsCsv():
+    pass
