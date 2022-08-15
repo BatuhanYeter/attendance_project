@@ -1,6 +1,7 @@
 from msilib.schema import Error
 import pyodbc
 import os
+import time
 
 def connect():    
     conn = pyodbc.connect(
@@ -32,8 +33,9 @@ def save_entrance(employer_id):
             'insert into Entrances(employer_id) values(?);',
             (employer_id)           
             )
-        conn.commit()
         print(f'worker with id:{employer_id} has ben detected and saved.')
+        conn.commit()
+        time.sleep(2)
     except pyodbc.Error as err:
         return err
         
@@ -75,16 +77,24 @@ def deleteEmployerById(id):
         )
         photo_uuid = cursor.fetchone()
         path = "./images"
-        os.remove(f'{path}/{photo_uuid[0]}.jpg')
         
-        # print(photo_uuid[0])
         
-        cursor.execute(
+        if os.path.exists(f'{path}/{photo_uuid[0]}.jpg'):
+            os.remove(f'{path}/{photo_uuid[0]}.jpg')
+            # cursor.execute(
+            #     'delete from Entrances where employer_id=?',
+            #     (id)
+            # )
+            # cursor.commit()
+            cursor.execute(
             'delete from Employers where id=?',
             (id)        
             )
-        print(cursor.rowcount)
-        cursor.commit()
+            cursor.commit()
+            
+            return 1
+        else:
+            return "Something went wrong: No image found."
     except pyodbc.Error as err:
         return err    
 
@@ -131,7 +141,7 @@ def findByAddressId(id):
     except pyodbc.Error as err:
         return err
 
-def findAttendacesById():
+def findAttendancesById():
     pass
 
 def saveAsCsv():

@@ -146,6 +146,8 @@ class GUI:
         
         employers = db.fetchAllEmployers()
         
+        
+            
         if employers:
             for index, emp in enumerate(employers):
                 lblFName = Label(window, text=emp[2])
@@ -154,11 +156,19 @@ class GUI:
                 lblFName.grid(column=0, row=index)
                 lblLName.grid(column=1, row=index)
                 
-                btnDelete = Button(window, text="Delete", command=lambda:db.deleteEmployerById(emp[0]))
+                btnDelete = Button(window, text="Delete", command=lambda:[deleteAndUpdateUI(emp[0])])
                 btnDelete.grid(column=2, row=index)
         else:
             messagebox.showerror("Error","No user found")
-    
+
+        def deleteAndUpdateUI(id):
+            res = db.deleteEmployerById(id)
+            if(res == 1):
+                messagebox.showinfo("Info", "Employer deleted!")
+                window.destroy()
+                window.mainloop()
+            else:
+                messagebox.showerror(f'Error", "Something went wrong: {res}')
     def startSystem():
         project.startSystem()
     
