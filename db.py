@@ -1,3 +1,4 @@
+import csv
 from msilib.schema import Error
 import pyodbc
 import os
@@ -141,8 +142,25 @@ def findByAddressId(id):
     except pyodbc.Error as err:
         return err
 
-def findAttendancesById():
-    pass
-
-def saveAsCsv():
-    pass
+def fetchAttendanceById(id):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            'Select * From Entrances Where employer_id=?',
+            (id)
+        )
+        
+        data = cursor.fetchall()
+        return data
+    except pyodbc.Error as err:
+        return err
+    
+def saveAsCsv(data):
+    f = open('./attendance.csv', 'w')
+    writer = csv.writer(f)
+    print(data)
+    for row in data:
+        writer.writerow(row)
+    f.close()

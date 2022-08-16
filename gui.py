@@ -169,6 +169,26 @@ class GUI:
                 window.mainloop()
             else:
                 messagebox.showerror(f'Error", "Something went wrong: {res}')
+    
+    def extractToCsvUI(master):
+        window = Toplevel(master)
+        window.geometry('400x300')
+
+        window.title("Attendance App")
+        def onClickCsv(id):
+            attendance_data = db.fetchAttendanceById(id)
+            db.saveAsCsv(attendance_data)
+            messagebox.showinfo("Info", "Attendance report created.")
+        # label
+        Label(window, text = "Enter id: ",
+                font = ("Times New Roman", 10)).grid(column = 0,
+                row = 2, padx = 10, pady = 25)
+        inputId = Entry(window, width=15)
+        inputId.grid(column=1, row=2)
+        Button(window, text="Extract Report", command=lambda:onClickCsv(inputId.get())).grid(column=2, row=2)
+        
+        
+            
     def startSystem():
         project.startSystem()
     
@@ -180,11 +200,14 @@ class GUI:
         btnRegisterUI = Button(master, text="Register an employer", command=lambda:GUI.registerGUI(master))
         btnRegisterUI.pack(pady=20)
         
-        btnRegisterUI = Button(master, text="Delete an employer", command=lambda:GUI.deleteUI(master))
-        btnRegisterUI.pack(pady=20)
+        deleteEmployerUI = Button(master, text="Delete an employer", command=lambda:GUI.deleteUI(master))
+        deleteEmployerUI.pack(pady=20)
         
-        btnRegisterUI = Button(master, text="Start Recognition System", command=lambda:GUI.startSystem())
-        btnRegisterUI.pack(pady=20)
+        recognitionSystemUI = Button(master, text="Start Recognition System", command=lambda:GUI.startSystem())
+        recognitionSystemUI.pack(pady=20)
+        
+        extractCsvUI = Button(master, text="Extract Attendance Report", command=lambda:GUI.extractToCsvUI(master))
+        extractCsvUI.pack(pady=20)
         
         master.mainloop()    
             

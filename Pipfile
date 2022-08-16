@@ -11,6 +11,10 @@ face-recognition = "*"
 numpy = "*"
 pyodbc = "*"
 tk = "*"
+django = "*"
+django-cors-headers = "*"
+djangorestframework = "*"
+mssql-django = "*"
 
 [dev-packages]
 autopep8 = "*"
