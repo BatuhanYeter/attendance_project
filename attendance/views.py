@@ -5,18 +5,33 @@ from . import models
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
+ 
 
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
 
 class EmployersListView(
     APIView,
     UpdateModelMixin,
     DestroyModelMixin
 ):
+    serializer_class = serializers.EmployerSerializer
     def get(self, request, id=None):
         if id:
             try:
                 queryset = models.Employers.objects.get(id=id)
-                print(f'----------> {queryset}')
             except models.Employers.DoesNotExist:
                 return Response({'errors': 'This employer does not exist.'}, status=400)
             read_serializer = serializers.EmployerSerializer(queryset)
