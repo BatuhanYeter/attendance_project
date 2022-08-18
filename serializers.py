@@ -20,18 +20,27 @@ class EmployerSerializer(serializers.ModelSerializer):
     lastname = serializers.CharField(max_length=255) 
     firstname = serializers.CharField(max_length=255)
     age = serializers.IntegerField()
-    tck = serializers.CharField()
+    tck = serializers.CharField(max_length = 11)
     photoid = serializers.CharField()
-    email = serializers.CharField()
+    email = serializers.CharField(required=False)
     phonenumber = serializers.CharField(max_length = 10)
     addressid = AddressSerializer(required=False)
-    createddate = serializers.DateTimeField()
-    updatedate = serializers.DateTimeField()
-    deletedate = serializers.DateTimeField()  
+    createddate = serializers.DateTimeField(required=False)
+    updatedate = serializers.DateTimeField(required=False)
+    deletedate = serializers.DateTimeField(required=False)  
     
     
     def create(self, validated_data):
-        return models.Employers.objects.create(validated_data)
+        return models.Employers.objects.create(
+            lastname = validated_data.get("lastname"),
+            firstname = validated_data.get("firstname"),
+            age = validated_data.get("age"),
+            tck = validated_data.get("tck"),
+            photoid = validated_data.get("photoid"),
+            email = validated_data.get("email"),
+            phonenumber = validated_data.get("phonenumber"),
+            addressid = validated_data.get("addressid"),
+        )
     
     def update(self, instance, validated_data):
         models.Employers.objects.update(instance, validated_data)

@@ -10,10 +10,13 @@ from django.db import models
 
 class Addresses(models.Model):
     name = models.CharField(db_column='Name', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
-
+    def __str__(self):          
+        return self.name 
     class Meta:
         managed = False
         db_table = 'Addresses'
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
 
 
 class Deletedemployers(models.Model):
@@ -29,6 +32,8 @@ class Deletedemployers(models.Model):
     class Meta:
         managed = False
         db_table = 'DeletedEmployers'
+        verbose_name = 'Deleted Employer'
+        verbose_name_plural = 'Deleted Employers'
 
 
 class Employers(models.Model):
@@ -47,6 +52,8 @@ class Employers(models.Model):
     class Meta:
         managed = False
         db_table = 'Employers'
+        verbose_name = 'Employer'
+        verbose_name_plural = 'Employers'
 
 
 class Entrances(models.Model):
@@ -56,6 +63,8 @@ class Entrances(models.Model):
     class Meta:
         managed = False
         db_table = 'Entrances'
+        verbose_name = 'Entrance'
+        verbose_name_plural = 'Entrances'
 
 
 class AuthGroup(models.Model):
