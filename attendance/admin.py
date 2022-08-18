@@ -12,3 +12,7 @@ class AddressesAdmin(admin.ModelAdmin):
 @admin.register(models.Deletedemployers)
 class DeletedEmployersAdmin(admin.ModelAdmin):
     list_display = ("lastname", "firstname", "phonenumber", "tck",  "deletedate")
+    
+@admin.register(models.Entrances)
+class EntrancesAdmin(admin.ModelAdmin):
+    list_display = ("employer", "createddate")

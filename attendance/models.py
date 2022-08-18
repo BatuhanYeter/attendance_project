@@ -49,6 +49,9 @@ class Employers(models.Model):
     updatedate = models.DateTimeField(db_column='updateDate', blank=True, null=True)  # Field name made lowercase.
     deletedate = models.DateTimeField(db_column='deleteDate', blank=True, null=True)  # Field name made lowercase.
 
+    def __str__(self):          
+        return f'{self.firstname} {self.lastname}'
+    
     class Meta:
         managed = False
         db_table = 'Employers'
