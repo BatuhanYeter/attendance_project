@@ -16,6 +16,8 @@ django-cors-headers = "*"
 djangorestframework = "*"
 mssql-django = "*"
 drf-yasg = "*"
+pyqt5 = "*"
+imutils = "*"
 
 [dev-packages]
 autopep8 = "*"

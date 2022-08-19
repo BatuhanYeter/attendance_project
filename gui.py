@@ -1,5 +1,6 @@
 import email
 from msilib.schema import ComboBox
+import tkinter
 import cv2
 import face_recognition
 import numpy as np
@@ -9,6 +10,7 @@ import db
 from tkinter import filedialog, messagebox
 from tkinter import *
 from tkinter import ttk
+
 import project
 import uuid
 
@@ -187,8 +189,20 @@ class GUI:
         inputId.grid(column=1, row=2)
         Button(window, text="Extract Report", command=lambda:onClickCsv(inputId.get())).grid(column=2, row=2)
         
+    def showInfoGUI(employer):
+        window = Tk()
+        window.title(f"Employer: {employer[2]} {employer[1]}")
+        window.geometry("300x400")
         
-            
+        textBox = Text(window, height = 5, width = 52)
+        employer_info = f'Employer: {employer[2]} {employer[1]}\n Age: {employer[3]}\n TCK: {employer[4]}\n Phone number: {employer[7]} '
+        
+        textBox.pack()
+        
+        textBox.insert(tkinter.END, employer_info)
+        window.after(2000,lambda:window.destroy())
+        window.mainloop()
+        
     def startSystem():
         project.startSystem()
     

@@ -54,7 +54,20 @@ def find_employerId(photo_uuid):
         return employer[0]
     except pyodbc.Error as err:
         return err
-    
+
+def fetchEmployerByPhotoId(photo_uuid):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        cursor.execute(
+            'select * from Employers where PhotoId=?',
+            (photo_uuid)           
+            )
+        employer = cursor.fetchone()
+        return employer
+    except pyodbc.Error as err:
+        return err
+
 def fetchAllEmployers():
     try:
         conn = connect()
@@ -160,7 +173,7 @@ def fetchAttendanceById(id):
 def saveAsCsv(data):
     f = open('./attendance.csv', 'w')
     writer = csv.writer(f)
-    print(data)
+    # print(data)
     for row in data:
         writer.writerow(row)
     f.close()
