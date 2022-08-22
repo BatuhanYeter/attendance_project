@@ -22,53 +22,53 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
-class EmployersListView(
+class WorkersListView(
     APIView,
     UpdateModelMixin,
     DestroyModelMixin
 ):
-    serializer_class = serializers.EmployerSerializer
+    serializer_class = serializers.WorkerSerializer
     def get(self, request, id=None):
         if id:
             try:
-                queryset = models.Employers.objects.get(id=id)
-            except models.Employers.DoesNotExist:
-                return Response({'errors': 'This employer does not exist.'}, status=400)
-            read_serializer = serializers.EmployerSerializer(queryset)
+                queryset = models.Workers.objects.get(id=id)
+            except models.Workers.DoesNotExist:
+                return Response({'errors': 'This worker does not exist.'}, status=400)
+            read_serializer = serializers.WorkerSerializer(queryset)
         else:
-            queryset = models.Employers.objects.all()
-            read_serializer = serializers.EmployerSerializer(queryset, many=True)
+            queryset = models.Workers.objects.all()
+            read_serializer = serializers.WorkerSerializer(queryset, many=True)
 
         return Response(read_serializer.data)
 
     def post(self, request):
-        create_serializer = serializers.EmployerSerializer(data=request.data)
+        create_serializer = serializers.WorkerSerializer(data=request.data)
         
         if create_serializer.is_valid():
             employer_object = create_serializer.save()
-            read_serializer = serializers.EmployerSerializer(employer_object)
+            read_serializer = serializers.WorkerSerializer(employer_object)
             return Response(read_serializer.data, status=201)
         return Response(create_serializer.errors, status=400)
 
     def put(self, request, id=None):
         try:
-            employer = models.Employers.objects.get(id=id)
-        except models.Employers.DoesNotExist:
-            return Response({'errors': 'This employer does not exist.'}, status=400)
+            employer = models.Workers.objects.get(id=id)
+        except models.Workers.DoesNotExist:
+            return Response({'errors': 'This worker does not exist.'}, status=400)
         
-        update_serializer = serializers.EmployerSerializer(employer, data=request.data)
+        update_serializer = serializers.WorkerSerializer(employer, data=request.data)
         
         if update_serializer.is_valid():
             employer_object = update_serializer.save()
-            read_serializer = serializers.EmployerSerializer(employer_object)
+            read_serializer = serializers.WorkerSerializer(employer_object)
             return Response(read_serializer.data, status=200)
         return Response(update_serializer.errors, status=400)
     
     def delete(self, request, id=None):
         try:
-            employer = models.Employers.objects.get(id=id)
-        except models.Employers.DoesNotExist:
-            return Response({'errors': 'This employer does not exist.'}, status=400)
+            employer = models.Workers.objects.get(id=id)
+        except models.Workers.DoesNotExist:
+            return Response({'errors': 'This worker does not exist.'}, status=400)
         
         employer.delete()
         

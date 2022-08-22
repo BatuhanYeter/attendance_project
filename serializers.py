@@ -16,7 +16,7 @@ class AddressSerializer(serializers.ModelSerializer):
         )
 
 
-class EmployerSerializer(serializers.ModelSerializer):
+class WorkerSerializer(serializers.ModelSerializer):
     lastname = serializers.CharField(max_length=255) 
     firstname = serializers.CharField(max_length=255)
     age = serializers.IntegerField()
@@ -63,6 +63,6 @@ class EmployerSerializer(serializers.ModelSerializer):
             'updatedate',
             'deletedate'
         )
-        verbose_name = 'Employer'
-        verbose_name_plural = 'Employers'
+        verbose_name = 'Worker'
+        verbose_name_plural = 'Workers'
         
