@@ -31,7 +31,7 @@ class EmployerSerializer(serializers.ModelSerializer):
     
     
     def create(self, validated_data):
-        return models.Employers.objects.create(
+        return models.Workers.objects.create(
             lastname = validated_data.get("lastname"),
             firstname = validated_data.get("firstname"),
             age = validated_data.get("age"),
@@ -43,12 +43,12 @@ class EmployerSerializer(serializers.ModelSerializer):
         )
     
     def update(self, instance, validated_data):
-        models.Employers.objects.update(instance, validated_data)
+        models.Workers.objects.update(instance, validated_data)
         instance.save()
         return instance
     
     class Meta:
-        model = models.Employers
+        model = models.Workers
         fields = (
             'id',
             'lastname',

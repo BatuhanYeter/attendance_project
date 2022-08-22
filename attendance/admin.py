@@ -1,7 +1,7 @@
 from django.contrib import admin
 from . import models
 
-@admin.register(models.Employers)
+@admin.register(models.Workers)
 class EmployersAdmin(admin.ModelAdmin):
     list_display = ("lastname", "firstname", "age", "tck", "photoid", "phonenumber", "addressid")
 
@@ -9,10 +9,10 @@ class EmployersAdmin(admin.ModelAdmin):
 class AddressesAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
     
-@admin.register(models.Deletedemployers)
+@admin.register(models.Deletedworkers)
 class DeletedEmployersAdmin(admin.ModelAdmin):
     list_display = ("lastname", "firstname", "phonenumber", "tck",  "deletedate")
     
 @admin.register(models.Entrances)
 class EntrancesAdmin(admin.ModelAdmin):
-    list_display = ("employer", "createddate")
+    list_display = ("worker_id", "createddate")

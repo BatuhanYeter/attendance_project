@@ -10,6 +10,7 @@ from django.db import models
 
 class Addresses(models.Model):
     name = models.CharField(db_column='Name', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
+
     def __str__(self):          
         return self.name 
     class Meta:
@@ -19,7 +20,7 @@ class Addresses(models.Model):
         verbose_name_plural = 'Addresses'
 
 
-class Deletedemployers(models.Model):
+class Deletedworkers(models.Model):
     old_id = models.IntegerField(db_column='Old_id', blank=True, null=True)  # Field name made lowercase.
     lastname = models.CharField(db_column='LastName', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
     firstname = models.CharField(db_column='FirstName', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
@@ -31,12 +32,23 @@ class Deletedemployers(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'DeletedEmployers'
-        verbose_name = 'Deleted Employer'
-        verbose_name_plural = 'Deleted Employers'
+        db_table = 'Deletedworkers'
+        verbose_name = 'Deleted Workers'
+        verbose_name_plural = 'Deleted Workers'
 
 
-class Employers(models.Model):
+class Entrances(models.Model):
+    worker = models.ForeignKey('Workers', models.DO_NOTHING, blank=True, null=True)
+    createddate = models.DateTimeField(db_column='createdDate', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Entrances'
+        verbose_name = 'Entrance'
+        verbose_name_plural = 'Entrances'
+
+
+class Workers(models.Model):
     lastname = models.CharField(db_column='LastName', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
     firstname = models.CharField(db_column='FirstName', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
     age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
@@ -48,26 +60,13 @@ class Employers(models.Model):
     createddate = models.DateTimeField(db_column='createdDate', blank=True, null=True)  # Field name made lowercase.
     updatedate = models.DateTimeField(db_column='updateDate', blank=True, null=True)  # Field name made lowercase.
     deletedate = models.DateTimeField(db_column='deleteDate', blank=True, null=True)  # Field name made lowercase.
-
     def __str__(self):          
         return f'{self.firstname} {self.lastname}'
-    
     class Meta:
         managed = False
-        db_table = 'Employers'
-        verbose_name = 'Employer'
-        verbose_name_plural = 'Employers'
-
-
-class Entrances(models.Model):
-    employer = models.ForeignKey(Employers, models.DO_NOTHING, blank=True, null=True)
-    createddate = models.DateTimeField(db_column='createdDate', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Entrances'
-        verbose_name = 'Entrance'
-        verbose_name_plural = 'Entrances'
+        db_table = 'Workers'
+        verbose_name = 'Workers'
+        verbose_name_plural = 'Workers'
 
 
 class AuthGroup(models.Model):
@@ -182,7 +181,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-
-    
