@@ -33,7 +33,7 @@ class WorkersListView(
     DestroyModelMixin
 ):
     serializer_class = serializers.WorkerSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self, request, id=None):
         if id:
             try:

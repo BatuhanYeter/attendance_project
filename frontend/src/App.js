@@ -3,36 +3,19 @@ import './App.css';
 
 import React, { useEffect, useState } from 'react'
 
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import Login from './Login';
+import Home from './Home';
+
 const App
  = () => {
-  const [workers, setWorkers] = useState([]);
-  const [errors, setErrors] = useState("");
-
-  useEffect(() => {
-    const fetchWorkers = () => {
-      fetch('http://127.0.0.1:8000/workers/')
-      .then(response => response.json())
-      .then(data => 
-        setWorkers(data)
-      )
-    }
-    fetchWorkers();
-  }, [])
-  
   return (
-    <div>
-        {workers.map(function(worker, index) {
-          return (
-            <div>
-              <div>{worker.firstname}</div>
-              <div>{worker.lastname}</div>
-              <div>{worker.tck}</div>
-            </div>
-          
-          )
-          
-        })}
-    </div>
+    <Router>
+      <Routes>
+        <Route component={Login} path="/login" element={<Login/>} />
+        <Route component={Home} path="/" element={<Home/>} exact />
+      </Routes>
+    </Router>
   )
 }
 
