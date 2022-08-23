@@ -10,7 +10,6 @@
 import time
 import face_recognition
 import numpy as np
-import gui
 import ctypes
 import uuid, os
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -18,7 +17,6 @@ import db
 from PyQt5.QtCore import pyqtSlot
 from tkinter import filedialog, messagebox
 import cv2
-import project
 
 
 class RegisterWindow(QtWidgets.QMainWindow):

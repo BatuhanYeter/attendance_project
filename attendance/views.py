@@ -1,15 +1,20 @@
 from django.shortcuts import render
 import serializers
 from . import models
-
+from rest_framework import status
+from django.shortcuts import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
  
+from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework import permissions
+
+import json
 
 
 schema_view = get_schema_view(
@@ -28,6 +33,7 @@ class WorkersListView(
     DestroyModelMixin
 ):
     serializer_class = serializers.WorkerSerializer
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, id=None):
         if id:
             try:
@@ -45,31 +51,83 @@ class WorkersListView(
         create_serializer = serializers.WorkerSerializer(data=request.data)
         
         if create_serializer.is_valid():
-            employer_object = create_serializer.save()
-            read_serializer = serializers.WorkerSerializer(employer_object)
+            worker_object = create_serializer.save()
+            read_serializer = serializers.WorkerSerializer(worker_object)
             return Response(read_serializer.data, status=201)
         return Response(create_serializer.errors, status=400)
 
     def put(self, request, id=None):
         try:
-            employer = models.Workers.objects.get(id=id)
+            worker = models.Workers.objects.get(id=id)
         except models.Workers.DoesNotExist:
             return Response({'errors': 'This worker does not exist.'}, status=400)
         
-        update_serializer = serializers.WorkerSerializer(employer, data=request.data)
+        update_serializer = serializers.WorkerSerializer(worker, data=request.data)
         
         if update_serializer.is_valid():
-            employer_object = update_serializer.save()
-            read_serializer = serializers.WorkerSerializer(employer_object)
+            worker_object = update_serializer.save()
+            read_serializer = serializers.WorkerSerializer(worker_object)
             return Response(read_serializer.data, status=200)
         return Response(update_serializer.errors, status=400)
     
     def delete(self, request, id=None):
         try:
-            employer = models.Workers.objects.get(id=id)
+            worker = models.Workers.objects.get(id=id)
         except models.Workers.DoesNotExist:
+            return Response({'errors': 'This worker does not exist.'}, status=400)
+        
+        worker.delete()
+        
+        return Response(status=204)
+    
+    
+class EntranceListView(
+    APIView,
+    UpdateModelMixin,
+    DestroyModelMixin
+):
+    serializer_class = serializers.EntranceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    # filter_backends = [DjangoFilterBackend]
+    # filter_fields = {
+    #     'worker': ["in", "exact"], # note the 'in' field
+    #     'ean': ["exact"]
+    # }
+    
+    def get(self, request, id=None):
+        if id:
+            try:
+                queryset = models.Entrances.objects.all()
+                entrances = queryset.filter(worker = id)
+                read_serializer = serializers.EntranceSerializer(entrances, many=True)
+                # queryset = models.Entrances.objects.get(worker=id)
+            except models.Entrances.DoesNotExist:
+                return Response({'errors': 'This worker does not exist.'}, status=400)
+        else:
+            queryset = models.Entrances.objects.all()
+            read_serializer = serializers.EntranceSerializer(queryset, many=True)
+
+        return Response(read_serializer.data)
+
+    def post(self, request):
+        create_serializer = serializers.EntranceSerializer(data=request.data)
+        
+        if create_serializer.is_valid():
+            employer_object = create_serializer.save()
+            read_serializer = serializers.EntranceSerializer(employer_object)
+            return Response(read_serializer.data, status=201)
+        return Response(create_serializer.errors, status=400)
+    
+    def delete(self, request, id=None):
+        try:
+            employer = models.Entrances.objects.get(id=id)
+        except models.Entrances.DoesNotExist:
             return Response({'errors': 'This worker does not exist.'}, status=400)
         
         employer.delete()
         
-        return Response(status=204)
+        return Response(status=204)    
+    
+def index(request):
+    context = {}
+    return render(request, "index.html", context=context)

@@ -18,6 +18,9 @@ mssql-django = "*"
 drf-yasg = "*"
 pyqt5 = "*"
 imutils = "*"
+markdown = "*"
+django-filter = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 autopep8 = "*"

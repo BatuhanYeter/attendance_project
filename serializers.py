@@ -66,3 +66,23 @@ class WorkerSerializer(serializers.ModelSerializer):
         verbose_name = 'Worker'
         verbose_name_plural = 'Workers'
         
+
+
+class EntranceSerializer(serializers.ModelSerializer):
+    worker = WorkerSerializer(required=False)
+    createddate = serializers.DateTimeField(required=False)  
+    
+    def create(self, validated_data):
+        return models.Entrances.objects.create(
+            worker = validated_data.get("worker"),
+        )
+    
+    class Meta:
+        model = models.Entrances
+        fields = (
+            'id',
+            'worker',
+            'createddate',
+        )
+        verbose_name = 'Entrance'
+        verbose_name_plural = 'Entrances'
