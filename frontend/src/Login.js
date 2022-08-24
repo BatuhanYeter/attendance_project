@@ -1,62 +1,79 @@
-import React from 'react'
-import jwt_decode from "jwt-decode";
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    
-    const navigate = useNavigate()
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    const loginAdmin = async (username, password) => {
-        const response = await fetch("http://127.0.0.1:8000/workers/", 
-        {
-          method: "GET",
-          headers: {
-            "Content-Type":"application/json",
-            "Authorization": "Basic " + btoa(`${username}:${password}`)
-          },
-        }) 
-        const data = await response.json()
-        if (response.status === 200) {
-            
-            console.log(data)
-            localStorage.setItem("username", username)
-            localStorage.setItem("password", password)
-            // setToken(jwt_decode(data.access))
-            
-            navigate("/")
-        } else {
-            alert("Something went wrong!")
-        }
+  useEffect(() => {
+    if (localStorage.getItem('token') !== null) {
+      window.location.replace('http://localhost:3000/dashboard');
+    } else {
+      setLoading(false);
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        loginAdmin(username, password)
-      }
+  }, []);
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    const user = {
+      username: username,
+      password: password
+    };
+
+    fetch('http://127.0.0.1:8000/rest-auth/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.key)
+        if (data.key) {
+          localStorage.clear();
+          localStorage.setItem('token', data.key);
+          window.location.replace('http://localhost:3000/dashboard');
+        } else {
+          setUsername('');
+          setPassword('');
+          localStorage.clear();
+          setErrors(true);
+        }
+      });
+  };
 
   return (
     <div>
-        <form onSubmit={handleSubmit}>
-            <label>Username:
-            <input 
-                type="text" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            </label>
-            <label>Password:
-            <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            </label>
-            <input type="submit" />
+      {loading === false && <h1>Login</h1>}
+      {errors === true && <h2>Cannot log in with provided credentials</h2>}
+      {loading === false && (
+        <form onSubmit={onSubmit}>
+          <label htmlFor='username'>Username:</label> <br />
+          <input
+            name='username'
+            type='username'
+            value={username}
+            required
+            onChange={e => setUsername(e.target.value)}
+          />{' '}
+          <br />
+          <label htmlFor='password'>Password:</label> <br />
+          <input
+            name='password'
+            type='password'
+            value={password}
+            required
+            onChange={e => setPassword(e.target.value)}
+          />{' '}
+          <br />
+          <input type='submit' value='Login' />
         </form>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

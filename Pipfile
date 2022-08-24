@@ -21,6 +21,9 @@ imutils = "*"
 markdown = "*"
 django-filter = "*"
 djangorestframework-simplejwt = "*"
+dj-auth = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
 
 [dev-packages]
 autopep8 = "*"

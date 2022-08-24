@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'attendance',
     "corsheaders",
     'drf_yasg',
+    'dj_rest_auth',
+    'allauth',    
     
     'rest_framework.authtoken',
     'django.contrib.admin',
@@ -45,6 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+AUTHENTICATION_BACKENDS = (    
+    "django.contrib.auth.backends.ModelBackend",    
+    "allauth.account.auth_backends.AuthenticationBackend",
+                        )
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     
@@ -151,6 +157,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        
         
     )
 }
