@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>System AL</h1>
+      <h1>Sistem AL</h1>
       <ul>
         {isAuth === true ? (
           <Fragment>

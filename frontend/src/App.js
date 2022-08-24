@@ -9,11 +9,12 @@ import Home from './Home';
 import Navbar from './Navbar';
 import Logout from './Logout';
 import Dashboard from './Dashboard';
+
 const App
  = () => {
   return (
     <Router>
-      <Navbar/>
+      
       <Routes>
         <Route component={Home} path="/" element={<Home/>} exact />
         <Route component={Login} path="/login" element={<Login/>} />
