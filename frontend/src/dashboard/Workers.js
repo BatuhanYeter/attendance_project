@@ -59,6 +59,8 @@ export default function Workers() {
     }
   }, []);
 
+  
+
   return (
     <React.Fragment>
       <Title>Workers</Title>
@@ -106,15 +108,21 @@ export default function Workers() {
         {loading === false && (
         entrances.length > 0 ? (
             entrances.map(function(entrance, index) {
+              console.log("DATE BEFORE: "+ entrance.createddate)
+              var date = new Date(entrance.createddate)
+              // console.log("DATE AFTER: "+ date.toUTCString())
               return (
             <TableRow key={entrance.id}>
               <TableCell>{entrance.worker.id}</TableCell>
               <TableCell>{`${entrance.worker.firstname} ${entrance.worker.lastname}`}</TableCell>
-              <TableCell>{format(new Date(entrance.createddate), 'dd/MM/yyyy')}</TableCell>
+              {/* <TableCell>{format(date , 'dd/MM/yyyy HH:mm')}</TableCell> */}
+              <TableCell>{date.toUTCString()}</TableCell>
             </TableRow>
               )})
         ) : (
-          <p>No access.</p>
+          <TableRow>
+              <TableCell>No access.</TableCell>
+            </TableRow>
         )
 
 
