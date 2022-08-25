@@ -36,7 +36,7 @@ def save_entrance(worker_id):
             )
         print(f'worker with id:{worker_id} has ben detected and saved.')
         conn.commit()
-        time.sleep(2)
+        time.sleep(3)
     except pyodbc.Error as err:
         return err
         

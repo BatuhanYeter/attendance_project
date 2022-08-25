@@ -7,48 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect} from 'react';
+import { format } from 'date-fns'
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
 
-const rows = [
-  createData(
-    0,
-    '16 Mar, 2019',
-    'Elvis Presley',
-    'Tupelo, MS',
-    'VISA ⠀•••• 3719',
-    312.44,
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Paul McCartney',
-    'London, UK',
-    'VISA ⠀•••• 2574',
-    866.99,
-  ),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(
-    3,
-    '16 Mar, 2019',
-    'Michael Jackson',
-    'Gary, IN',
-    'AMEX ⠀•••• 2000',
-    654.39,
-  ),
-  createData(
-    4,
-    '15 Mar, 2019',
-    'Bruce Springsteen',
-    'Long Branch, NJ',
-    'VISA ⠀•••• 5919',
-    212.79,
-  ),
-];
 
 function preventDefault(event) {
   event.preventDefault();
@@ -58,6 +20,7 @@ function preventDefault(event) {
 
 export default function Workers() {
   const [workers, setWorkers] = useState([]);
+  const [entrances, setEntrances] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,6 +40,20 @@ export default function Workers() {
         .then(data => {
           console.log(data)
           setWorkers(data);
+          setLoading(false);
+        });
+
+        fetch('http://127.0.0.1:8000/entrances/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${localStorage.getItem('token')}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          setEntrances(data);
           setLoading(false);
         });
     }
@@ -101,7 +78,7 @@ export default function Workers() {
             workers.map(function(worker, index) {
               return (
             <TableRow key={worker.id}>
-              <TableCell>{worker.createddate}</TableCell>
+              <TableCell>{format(new Date(worker.createddate), 'dd/MM/yyyy')}</TableCell>
               <TableCell>{worker.firstname}</TableCell>
               <TableCell>{worker.lastname}</TableCell>
               <TableCell>{worker.tck}</TableCell>
@@ -111,11 +88,41 @@ export default function Workers() {
         ) : (
           <p>No access.</p>
         )
+
+
+      )}
+        </TableBody>
+      </Table>
+      <Title>Entrances</Title>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Worker Id</TableCell>
+            <TableCell>Worker Fullname</TableCell>
+            <TableCell>Entrance Date</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+        {loading === false && (
+        entrances.length > 0 ? (
+            entrances.map(function(entrance, index) {
+              return (
+            <TableRow key={entrance.id}>
+              <TableCell>{entrance.worker.id}</TableCell>
+              <TableCell>{`${entrance.worker.firstname} ${entrance.worker.lastname}`}</TableCell>
+              <TableCell>{format(new Date(entrance.createddate), 'dd/MM/yyyy')}</TableCell>
+            </TableRow>
+              )})
+        ) : (
+          <p>No access.</p>
+        )
+
+
       )}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
+        See the entrances
       </Link>
     </React.Fragment>
   );

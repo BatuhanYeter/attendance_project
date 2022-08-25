@@ -121,7 +121,7 @@ class RegisterWindow(QtWidgets.QMainWindow):
             photo_uuid = uuid.uuid4()
             
             # resize
-            scale_percent = 15 # percent of original size
+            scale_percent = 30 # percent of original size
             width = int(img.shape[1] * scale_percent / 100)
             height = int(img.shape[0] * scale_percent / 100)
             print(f"new width n height: {width}, {height}")
@@ -196,16 +196,16 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
         self.labelFullName = QtWidgets.QLabel(self)
-        self.labelFullName.setGeometry(QtCore.QRect(40, 230, 121, 31))
+        self.labelFullName.setGeometry(QtCore.QRect(40, 300, 121, 31))
         self.labelFullName.setObjectName("labelFullName")
         self.labelAge = QtWidgets.QLabel(self)
-        self.labelAge.setGeometry(QtCore.QRect(40, 270, 121, 31))
+        self.labelAge.setGeometry(QtCore.QRect(40, 330, 121, 31))
         self.labelAge.setObjectName("labelAge")
         self.labelTCK = QtWidgets.QLabel(self)
-        self.labelTCK.setGeometry(QtCore.QRect(40, 310, 121, 31))
+        self.labelTCK.setGeometry(QtCore.QRect(40, 360, 121, 31))
         self.labelTCK.setObjectName("labelTCK")
         self.labelPhone = QtWidgets.QLabel(self)
-        self.labelPhone.setGeometry(QtCore.QRect(40, 350, 121, 31))
+        self.labelPhone.setGeometry(QtCore.QRect(40, 390, 121, 31))
         self.labelPhone.setObjectName("labelPhone")
         self.label_image = QtWidgets.QLabel(self)
         self.label_image.setGeometry(QtCore.QRect(30, 30, 191, 161))
@@ -272,8 +272,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def openDeleteWindow(self, checked):
         self.w = DeleteWindow()
         self.w.show()
-    
-    
+       
     def statusBar(self):
         self.progressBar.show()
         # setting for loop to set value of progress bar
@@ -338,7 +337,8 @@ class MainWindow(QtWidgets.QMainWindow):
                     y1, x1, y2, x2 = faceLocation
                     y1, x1, y2, x2 = y1*4, x1*4, y2*4, x2*4
                     cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                    cv2.rectangle(img, (x1, y2-35), (x2, y2), (0, 255, 0), cv2.FILLED)
+                    cv2.rectangle(img, (x1,y2-35),(x2,y2), (0,255,0), cv2.FILLED)
+                    
                     # cv2.putText(img, photo_uuid, (x1+6, y2-6),
                     #             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
                     
@@ -362,15 +362,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.labelTCK.setText(f"TCK: {employer[4]}")
                     self.labelPhone.setText(f"Phone Number: {employer[7]}")
                     
-                    # gui.GUI.showInfoGUI(employer)
-                    # ctypes.windll.user32.MessageBoxW(0, f"\tEmployer id: {employer[0]}\nName: {employer[2]} {employer[1]}\nAge: {employer[3]}\nTCK: {employer[4]}\nPhone Number: {employer[7]}", "Employer Info", 1)
-                    
+                    # TODO: Send signal and open the gate
                     
             cv2.imshow("Webcam", img)
             cv2.waitKey(1)
             if cv2.getWindowProperty("Webcam", cv2.WND_PROP_VISIBLE) < 1:
                 break
-
         
 import sys
     

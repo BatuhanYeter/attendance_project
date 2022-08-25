@@ -1,25 +1,20 @@
 
 import './App.css';
 
-import React, { useEffect, useState } from 'react'
-
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
-import Login from './Login';
-import Home from './Home';
-import Navbar from './Navbar';
-import Logout from './Logout';
-import Dashboard from './Dashboard';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from './auth/Login';
+import Logout from './auth/Logout';
+import Dashboard from './dashboard/Dashboard';
 
 const App
  = () => {
   return (
     <Router>
-      
       <Routes>
-        <Route component={Home} path="/" element={<Home/>} exact />
+        {/* <Route component={Home} path="/" element={<Home/>} exact /> */}
         <Route component={Login} path="/login" element={<Login/>} />
         <Route component={Login} path="/logout" element={<Logout/>} />
-        <Route component={Dashboard} path="/dashboard" element={<Dashboard/>} />
+        <Route component={Dashboard} path="/" element={<Dashboard/>} exact />
       </Routes>
     </Router>
   )
