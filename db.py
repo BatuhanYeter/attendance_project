@@ -18,7 +18,7 @@ def create_user(lastName, firstName, age, tck, photo_uuid, email, phone_number, 
         conn = connect()
         cursor = conn.cursor()
         cursor.execute(
-            'insert into Workers(LastName,FirstName,Age,TCK,PhotoId,Email,PhoneNumber,AddressId) values(?,?,?,?,?,?,?,?);',
+            'insert into Workers(LastName,FirstName,Age,TCK,PhotoUrl,Email,PhoneNumber,AddressId) values(?,?,?,?,?,?,?,?);',
             (lastName,firstName,age,tck,photo_uuid,email,phone_number,address_id)
             ) 
         conn.commit()   
@@ -42,12 +42,13 @@ def save_entrance(worker_id):
         
     
 def find_workerId(photo_uuid):
+    path = "images"
     try:
         conn = connect()
         cursor = conn.cursor()
         cursor.execute(
-            'select * from Workers where PhotoId=?',
-            (photo_uuid)           
+            'select * from Workers where PhotoUrl=?',
+            (f'{path}/{photo_uuid}')           
             )
         worker = cursor.fetchone()
         print(worker[0])
@@ -56,12 +57,13 @@ def find_workerId(photo_uuid):
         return err
 
 def fetchWorkerByPhotoId(photo_uuid):
+    path = "images"
     try:
         conn = connect()
         cursor = conn.cursor()
         cursor.execute(
-            'select * from Workers where PhotoId=?',
-            (photo_uuid)           
+            'select * from Workers where PhotoUrl=?',
+            (f'{path}/{photo_uuid}')           
             )
         worker = cursor.fetchone()
         return worker

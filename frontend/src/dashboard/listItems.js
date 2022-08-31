@@ -16,11 +16,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={() => window.location.replace('http://localhost:3000/register')}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Workers" />
+      <ListItemText primary="Add Worker" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

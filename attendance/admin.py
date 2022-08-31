@@ -3,7 +3,7 @@ from . import models
 
 @admin.register(models.Workers)
 class EmployersAdmin(admin.ModelAdmin):
-    list_display = ("lastname", "firstname", "age", "tck", "photoid", "phonenumber", "addressid")
+    list_display = ("lastname", "firstname", "age", "tck", "photourl", "phonenumber", "address")
 
 @admin.register(models.Addresses)
 class AddressesAdmin(admin.ModelAdmin):

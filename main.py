@@ -112,7 +112,7 @@ class RegisterWindow(QtWidgets.QMainWindow):
         self.phone_number = self.lineEdit_6.text()
         self.address = self.comboBox.currentText()
         
-        path = "./images"
+        path = "./media/images"
         address_id = db.getAddressIdByName(self.address)
         if self.lastname != "" and self.firstName != "" and self.age != "" and self.tck != "" and self.phone_number != "" and address_id != "":
             filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
@@ -285,7 +285,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.progressBar.hide()
 
     def startSystem(self):
-        path = "images"        
+        path = "./media/images"        
         
         images = []
         classNames = []
@@ -343,13 +343,13 @@ class MainWindow(QtWidgets.QMainWindow):
                     #             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
                     
                     # fetch employer data
-                    employer = db.fetchWorkerByPhotoId(photo_uuid)
-                    
+                    worker = db.fetchWorkerByPhotoId(photo_uuid)
+                    print(worker)
                     # save the worker's entrance
-                    db.save_entrance(employer[0])
+                    db.save_entrance(worker[0])
 
                     # show info
-                    self.pixmap = QtGui.QPixmap(f'{path}/{employer[5]}.jpg')
+                    self.pixmap = QtGui.QPixmap(f'{path}/{worker[5]}.jpg')
                     # self.pixmap_resize = self.pixmap.scaled(64, 64, QtCore.Qt.KeepAspectRatio)
                     self.pixmap_resize = self.pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio, QtCore.Qt.FastTransformation)
                     
@@ -357,10 +357,10 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.label_image.resize(self.pixmap_resize.width(),
                           self.pixmap_resize.height())
                     
-                    self.labelFullName.setText(f"Worker: {employer[2]} {employer[1]}")
-                    self.labelAge.setText(f"Age: {employer[3]}")
-                    self.labelTCK.setText(f"TCK: {employer[4]}")
-                    self.labelPhone.setText(f"Phone Number: {employer[7]}")
+                    self.labelFullName.setText(f"Worker: {worker[2]} {worker[1]}")
+                    self.labelAge.setText(f"Age: {worker[3]}")
+                    self.labelTCK.setText(f"TCK: {worker[4]}")
+                    self.labelPhone.setText(f"Phone Number: {worker[7]}")
                     
                     # TODO: Send signal and open the gate
                     
