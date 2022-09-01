@@ -118,8 +118,13 @@ export default function Register() {
             },
             body: form_data
           })
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
+          .then((res) => {
+            if(res.status === 201) {
+                alert("Register success!")
+                window.location.replace('http://localhost:3000/');
+            }
+          })
+          .catch((err) => alert(err));
         };
     
   return (
