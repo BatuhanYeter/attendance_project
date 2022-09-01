@@ -5,8 +5,11 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from datetime import datetime
 from django.db import models
 import os, uuid
+from django.utils import timezone
+
 
 class Addresses(models.Model):
     name = models.CharField(db_column='Name', max_length=255, db_collation='Turkish_CI_AS')  # Field name made lowercase.
@@ -72,7 +75,7 @@ class Workers(models.Model):
     email = models.CharField(db_column='Email', max_length=255, db_collation='Turkish_CI_AS', blank=True, null=True)  # Field name made lowercase.
     phonenumber = models.CharField(db_column='PhoneNumber', unique=True, max_length=10, db_collation='Turkish_CI_AS')  # Field name made lowercase.
     address = models.ForeignKey(Addresses, models.DO_NOTHING, related_name="address", db_column='AddressId', blank=True, null=True)  # Field name made lowercase.
-    createddate = models.DateTimeField(db_column='createdDate', blank=True, null=True)  # Field name made lowercase.
+    createddate = models.DateTimeField(db_column='createdDate', default=datetime.now, blank=True, null=True)  # Field name made lowercase.
     updatedate = models.DateTimeField(db_column='updateDate', blank=True, null=True)  # Field name made lowercase.
     deletedate = models.DateTimeField(db_column='deleteDate', blank=True, null=True)  # Field name made lowercase.
 

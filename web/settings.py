@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'dj_rest_auth',
     'allauth',    
+    'django_cleanup.apps.CleanupConfig',
     
     'rest_framework.authtoken',
     'django.contrib.admin',
@@ -132,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 

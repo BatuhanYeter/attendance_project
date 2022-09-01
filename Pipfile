@@ -24,6 +24,7 @@ djangorestframework-simplejwt = "*"
 dj-auth = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
+django-cleanup = "*"
 
 [dev-packages]
 autopep8 = "*"

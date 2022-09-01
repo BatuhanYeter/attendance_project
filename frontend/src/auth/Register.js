@@ -64,7 +64,7 @@ export default function Register() {
         firstname: "",
         lastname: "",
         age: "",
-        address: 0,
+        address: 1,
         tck: "",
         email: "",
         phonenumber: "",
@@ -102,7 +102,9 @@ export default function Register() {
     };
 
     const handleAddressChange = (event) => {
+        console.log("changed to: " + event.target.value)
         setSelectedAddress(event.target.value)
+        data["address"] = event.target.value
     };
 
     const handleSubmit = async (e) => {
