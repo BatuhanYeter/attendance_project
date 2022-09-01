@@ -64,7 +64,7 @@ export default function Register() {
         firstname: "",
         lastname: "",
         age: "",
-        address: "",
+        address: 0,
         tck: "",
         email: "",
         phonenumber: "",
@@ -72,11 +72,12 @@ export default function Register() {
     });
     function createMyModelEntry (data) {
         var form_data = new FormData();
-        
+        console.log("address"+ data.address)
         for(const name in data) {
+            console.log(name+" "+data[name])
             form_data.append(name, data[name]);
           }
-
+        form_data.append("address", selectedAddress)
         // form_data.append("firstname", data.firstname);
         // form_data.append("lastname", data.lastname);
         // form_data.append("tck", data.tck);
@@ -102,33 +103,22 @@ export default function Register() {
 
     const handleAddressChange = (event) => {
         setSelectedAddress(event.target.value)
-        var newData = { ...data };
-        newData["address"] = selectedAddress;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         var form_data = createMyModelEntry(data)
         // console.log("url" + form_data.get("photourl"))
-        var res = await fetch('http://127.0.0.1:8000/workers/', {
+        await fetch('http://127.0.0.1:8000/workers/', {
             method: 'POST',
             headers: {
-              'Content-Type': 'multipart/form-data',
               Authorization: `Token ${localStorage.getItem('token')}`
             },
             body: form_data
           })
-          .then((res) => console.log(res)).then(r => r.json())
-          .then(data => {
-            console.log(data)
-          })
+          .then((res) => console.log(res))
           .catch((err) => console.log(err));
-
-        
-       
-        
-        
-    };
+        };
     
   return (
     <ThemeProvider theme={theme}>
