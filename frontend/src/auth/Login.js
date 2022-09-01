@@ -7,8 +7,9 @@ const Login = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      window.location.replace('http://localhost:3000/dashboard');
+    var token = localStorage.getItem('token')
+    if (token !== null && token.detail !== undefined) {
+      window.location.replace('http://localhost:3000/');
     } else {
       setLoading(false);
     }

@@ -17,25 +17,19 @@ export default function InfoRight() {
 ];
 
 useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-        console.log("This worked")
-      window.location.replace('http://localhost:3000/login');
-    } else {
-        console.log("This worked: fetch")
-      fetch('http://127.0.0.1:8000/workers/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          setWorkers(data);
-        //   setLoading(false);
-        });
-    }
+    fetch('http://127.0.0.1:8000/workers/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setWorkers(data);
+      
+      });
   }, []);
   return (
     <React.Fragment>

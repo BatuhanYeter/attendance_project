@@ -22,8 +22,20 @@ import Chart from './Chart';
 import InfoRight from './InfoRight';
 import Workers from './Workers';
 
+import { useEffect } from 'react';
 
 function Copyright(props) {
+
+  useEffect(() => {
+    var token = localStorage.getItem('token')
+    if (token === null) {
+      console.log("Token null: " + token)
+      window.location.replace('http://localhost:3000/login');
+    } else {
+      console.log("Token is not null: " + token)
+    }
+  }, []);
+
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}

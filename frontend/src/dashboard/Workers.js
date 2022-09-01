@@ -22,41 +22,37 @@ export default function Workers() {
   const [workers, setWorkers] = useState([]);
   const [entrances, setEntrances] = useState([]);
   const [loading, setLoading] = useState(true);
+  async function fetchData() {
+    await fetch('http://127.0.0.1:8000/workers/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setWorkers(data);
+        setLoading(false);
+      });
 
-  useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-        console.log("This worked")
-      window.location.replace('http://localhost:3000/login');
-    } else {
-        console.log("This worked: fetch")
-      fetch('http://127.0.0.1:8000/workers/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          setWorkers(data);
-          setLoading(false);
-        });
-
-        fetch('http://127.0.0.1:8000/entrances/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          setEntrances(data);
-          setLoading(false);
-        });
-    }
+      fetch('http://127.0.0.1:8000/entrances/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setEntrances(data);
+        setLoading(false);
+      });
+  }
+  useEffect( ()  =>  {
+    fetchData()
   }, []);
 
   
@@ -67,7 +63,7 @@ export default function Workers() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Start Date</TableCell>
+            {/* <TableCell>Start Date</TableCell> */}
             <TableCell>Name</TableCell>
             <TableCell>Last Name</TableCell>
             <TableCell>TCK</TableCell>
@@ -80,7 +76,11 @@ export default function Workers() {
             workers.map(function(worker, index) {
               return (
             <TableRow key={worker.id}>
-              <TableCell>{format(new Date(worker.createddate), 'dd/MM/yyyy')}</TableCell>
+              {/* {worker.createddate !== null ? (
+                <TableCell>{format(new Date(worker.createddate), 'dd/MM/yyyy')}</TableCell>
+              ): (
+                <TableCell>Unknown</TableCell>
+              )} */}
               <TableCell>{worker.firstname}</TableCell>
               <TableCell>{worker.lastname}</TableCell>
               <TableCell>{worker.tck}</TableCell>

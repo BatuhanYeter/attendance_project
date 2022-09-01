@@ -19,7 +19,6 @@ class WorkerSerializer(serializers.ModelSerializer):
     photourl = serializers.ImageField()
     email = serializers.CharField(required=False)
     phonenumber = serializers.CharField(max_length = 10)
-    # address = AddressSerializer()
     address = serializers.PrimaryKeyRelatedField(
         queryset=models.Addresses.objects.all())
     # createddate = serializers.DateTimeField(required=False)

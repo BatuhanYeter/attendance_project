@@ -21,6 +21,7 @@ urlpatterns = [
   path('entrances/', views.EntranceListView.as_view()),
   path('entrances/<int:id>/', views.EntranceListView.as_view()),
   
+  path('address/', views.AddressListView.as_view()),
   
   path("api-auth/", include("rest_framework.urls")), 
   path('rest-auth/', include('dj_rest_auth.urls')),

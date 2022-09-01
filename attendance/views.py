@@ -16,6 +16,7 @@ from rest_framework import permissions
 
 import json
 
+from rest_framework.parsers import MultiPartParser, FormParser
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -33,6 +34,7 @@ class WorkersListView(
     DestroyModelMixin
 ):
     serializer_class = serializers.WorkerSerializer
+    parser_classes = (MultiPartParser, FormParser)
     # permission_classes = [permissions.IsAuthenticated]
     def get(self, request, id=None):
         if id:
@@ -128,6 +130,18 @@ class EntranceListView(
         
         return Response(status=204)    
     
+    
+class AddressListView(
+    APIView
+):
+    serializer_class = serializers.AddressSerializer
+    permission_classes = [permissions.AllowAny]
+    def get(self, request):
+        queryset = models.Addresses.objects.all()
+        read_serializer = serializers.AddressSerializer(queryset, many=True)
+
+        return Response(read_serializer.data)
+
 def index(request):
     context = {}
     return render(request, "index.html", context=context)
