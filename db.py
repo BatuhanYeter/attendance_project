@@ -42,7 +42,7 @@ def save_entrance(worker_id):
         
     
 def find_workerId(photo_uuid):
-    path = "images"
+    path = "./media/"
     try:
         conn = connect()
         cursor = conn.cursor()
@@ -58,14 +58,17 @@ def find_workerId(photo_uuid):
 
 def fetchWorkerByPhotoId(photo_uuid):
     path = "images"
+    print(photo_uuid)
     try:
         conn = connect()
         cursor = conn.cursor()
         cursor.execute(
             'select * from Workers where PhotoUrl=?',
-            (f'{path}/{photo_uuid}')           
+            (f'{path}/{photo_uuid}.jpg')           
             )
+        
         worker = cursor.fetchone()
+        print("Fetched worker: ", worker)
         return worker
     except pyodbc.Error as err:
         return err

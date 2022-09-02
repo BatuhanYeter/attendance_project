@@ -348,8 +348,8 @@ class MainWindow(QtWidgets.QMainWindow):
                     # save the worker's entrance
                     db.save_entrance(worker[0])
 
-                    # show info
-                    self.pixmap = QtGui.QPixmap(f'{path}/{worker[5]}.jpg')
+                    # show info .jpg
+                    self.pixmap = QtGui.QPixmap(f'media/{worker[5]}')
                     # self.pixmap_resize = self.pixmap.scaled(64, 64, QtCore.Qt.KeepAspectRatio)
                     self.pixmap_resize = self.pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio, QtCore.Qt.FastTransformation)
                     
