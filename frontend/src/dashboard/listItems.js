@@ -22,11 +22,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Add Worker" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton onClick={() => window.location.replace('http://localhost:3000/workers')}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Workers" />
     </ListItemButton>
   </React.Fragment>
 );

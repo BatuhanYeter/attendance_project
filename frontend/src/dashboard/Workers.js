@@ -88,7 +88,7 @@ export default function Workers() {
             </TableRow>
               )})
         ) : (
-          <p>No access.</p>
+          <div>No access.</div>
         )
 
 
@@ -122,7 +122,7 @@ export default function Workers() {
         ) : (
           <TableRow>
               <TableCell>No access.</TableCell>
-            </TableRow>
+          </TableRow>
         )
 
 
