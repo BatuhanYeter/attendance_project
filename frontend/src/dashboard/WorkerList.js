@@ -7,10 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom"
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,8 +36,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function WorkerList() {
   const [workers, setWorkers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [id, setId] = useState();
   const navigate = useNavigate();
+
+  const [selectedValue, setSelectedValue] = useState(0);
+
+  const handleChange = (event) => {
+    console.log(selectedValue + " === " + event.target.value)  
+    setSelectedValue(event.target.value);
+    console.log(selectedValue + " === " + event.target.value) 
+  };
 
   async function fetchData() {
     var token = localStorage.getItem('token')
@@ -57,13 +65,11 @@ export default function WorkerList() {
       });
     }}
 
-  useEffect( ()  =>  {
+  useEffect(()  =>  {
     fetchData()
   }, []);
 
-  const onClickHandle = () => {
-    window.location.replace('http://localhost:3000/entrance');
-  }
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -83,19 +89,17 @@ export default function WorkerList() {
                 return (
                 <StyledTableRow key={worker.id}>
                     <StyledTableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        // indeterminate={numSelected > 0 && numSelected < rowCount}
-                        // checked={rowCount > 0 && numSelected === rowCount}
-                        // onChange={onSelectAllClick}
-                        inputProps={{
-                        'aria-label': 'select all',
-                        }}
-                    />
+                    <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="controlled-radio-buttons-group"
+                  value={selectedValue}
+                  onChange={handleChange}>
+                    <Radio  
+                          onChange={handleChange}
+                          value={worker.id}
+                          inputProps={{ 'aria-labelledby': worker.firstname }}
+                        /></RadioGroup>
                     </StyledTableCell>
-                    {/* <StyledTableCell component="th" scope="row">
-                        {worker.firstname} 
-                    </StyledTableCell> */}
                     <StyledTableCell align="right">{worker.firstname}</StyledTableCell>
                     <StyledTableCell align="right">{worker.lastname}</StyledTableCell>
                     <StyledTableCell align="right">{worker.tck}</StyledTableCell>
@@ -111,7 +115,7 @@ export default function WorkerList() {
       </Table>
       
       <Button
-            onClick={()=>navigate("/entrances", {state:{id: 20, title:"aaa"}})}
+            onClick={()=>navigate("/entrances", {state:{id: selectedValue }})}
             type="submit"
             fullWidth
             variant="contained"

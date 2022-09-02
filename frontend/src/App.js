@@ -16,10 +16,10 @@ const App
       <Routes>
         {/* <Route component={Home} path="/" element={<Home/>} exact /> */}
         <Route component={Login} path="/login" element={<Login/>} />
-        <Route component={Login} path="/logout" element={<Logout/>} />
-        <Route component={Login} path="/register" element={<Register/>} />
-        <Route component={Login} path="/workers" element={<WorkerList/>} />
-        <Route component={Login} path="/entrances" element={<EntranceList/>} />
+        <Route component={Logout} path="/logout" element={<Logout/>} />
+        <Route component={Register} path="/register" element={<Register/>} />
+        <Route component={WorkerList} path="/workers" element={<WorkerList/>} />
+        <Route component={EntranceList} path="/entrances" element={<EntranceList/>} />
         <Route component={Dashboard} path="/" element={<Dashboard/>} exact />
       </Routes>
     </Router>

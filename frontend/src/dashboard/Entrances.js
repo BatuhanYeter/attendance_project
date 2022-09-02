@@ -7,8 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 import { useState, useEffect} from 'react';
 import { useLocation } from "react-router-dom";
 
@@ -51,6 +49,7 @@ export default function EntranceList(props) {
             console.log("token: "+ token)
             window.location.replace('http://localhost:3000/login');
         } else {
+            console.log("trying to get: "+ workerId)
             await fetch(`http://127.0.0.1:8000/entrances/${workerId}`, {
                 method: 'GET',
                 headers: {
