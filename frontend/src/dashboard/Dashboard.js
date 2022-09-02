@@ -25,17 +25,6 @@ import Workers from './Workers';
 import { useEffect } from 'react';
 
 function Copyright(props) {
-
-  useEffect(() => {
-    var token = localStorage.getItem('token')
-    if (token === null) {
-      console.log("Token null: " + token)
-      window.location.replace('http://localhost:3000/login');
-    } else {
-      console.log("Token is not null: " + token)
-    }
-  }, []);
-
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -102,7 +91,15 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  
+  useEffect(() => {
+    var token = localStorage.getItem('token')
+    if (token === null) {
+      console.log("Token null: " + token)
+      window.location.replace('http://localhost:3000/login');
+    } else {
+      console.log("Token is not null: " + token)
+    }
+  }, []);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -130,8 +127,7 @@ function DashboardContent() {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
-            >
+              sx={{ flexGrow: 1 }}>
               Admin Dashboard
             </Typography>
             <IconButton color="inherit">
@@ -189,7 +185,7 @@ function DashboardContent() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+              
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -202,7 +198,7 @@ function DashboardContent() {
                   <InfoRight />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Workers />

@@ -31,7 +31,6 @@ export default function Workers() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setWorkers(data);
         setLoading(false);
       });
@@ -45,7 +44,7 @@ export default function Workers() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setEntrances(data);
         setLoading(false);
       });
@@ -107,9 +106,7 @@ export default function Workers() {
         {loading === false && (
         entrances.length > 0 ? (
             entrances.map(function(entrance, index) {
-              console.log("DATE BEFORE: "+ entrance.createddate)
               var date = new Date(entrance.createddate)
-              // console.log("DATE AFTER: "+ date.toUTCString())
               return (
             <TableRow key={entrance.id}>
               <TableCell>{entrance.worker.id}</TableCell>
