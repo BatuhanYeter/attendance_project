@@ -27,7 +27,6 @@ import { mainListItems, secondaryListItems } from './dashboard/listItems';
 import WorkerList from './dashboard/WorkerList';
 
 
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>

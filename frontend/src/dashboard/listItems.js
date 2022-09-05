@@ -7,6 +7,11 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+function handleLogout() {
+
+}
 
 export const mainListItems = (
   <React.Fragment>
@@ -27,6 +32,12 @@ export const mainListItems = (
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Workers" />
+    </ListItemButton>
+    <ListItemButton onClick={() => window.location.replace('http://localhost:3000/logout')}>
+      <ListItemIcon>
+        <LogoutIcon />
+      </ListItemIcon>
+      <ListItemText primary="Sign Out" />
     </ListItemButton>
   </React.Fragment>
 );
