@@ -26,7 +26,6 @@ import EntranceList from './dashboard/Entrances';
 import { mainListItems, secondaryListItems } from './dashboard/listItems';
 import WorkerList from './dashboard/WorkerList';
 
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -91,10 +90,12 @@ const mdTheme = createTheme();
 const App
  = () => {
   const [open, setOpen] = React.useState(true);
-  
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>

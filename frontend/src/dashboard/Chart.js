@@ -10,12 +10,8 @@ function createData(time, amount) {
   return { time, amount };
 }
 
-
-
-
 export default function Chart() {
   const theme = useTheme();
-  const [entrances, setEntrances] = useState([]);
   const [morningShift, setMorningShiftEntrances] = useState(0);
   const [eveningShift, setEveningShiftEntrances] = useState(0);
   const [nightShift, setNightShiftEntrances] = useState(0);
@@ -32,8 +28,6 @@ async function fetchData() {
   })
     .then(res => res.json())
     .then(data => {
-      // console.log(data)
-      setEntrances(data);
       var shiftMor = 0;
       var shiftEve = 0;
       var shiftNig = 0;

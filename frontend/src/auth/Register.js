@@ -9,13 +9,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
-
-const theme = createTheme();
 
 export default function Register() {
     useEffect(() => {
@@ -39,7 +35,6 @@ export default function Register() {
                 });
         }
     }, [])
-    const [errors, setErrors] = useState("")
     const [addressData, setAddressData] = useState([])
     const [selectedAddress, setSelectedAddress] = useState("")
     const [selectedImage, setSelectedImage] = useState(null);

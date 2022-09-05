@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { createTheme } from '@mui/material/styles';
 import * as React from 'react';
 import Chart from './Chart';
 import InfoRight from './InfoRight';
@@ -8,14 +7,11 @@ import Workers from './Workers';
 
 import { useEffect } from 'react';
 
-
-const mdTheme = createTheme();
-
 function DashboardContent() {
   
   useEffect(() => {
     var token = localStorage.getItem('token')
-    if (token === null) {
+    if (token.length === 0) {
       console.log("Token null: " + token)
       window.location.replace('http://localhost:3000/login');
     } else {

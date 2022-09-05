@@ -18,23 +18,9 @@ function preventDefault(event) {
 
 
 export default function Workers() {
-  const [workers, setWorkers] = useState([]);
   const [entrances, setEntrances] = useState([]);
   const [loading, setLoading] = useState(true);
   async function fetchData() {
-    await fetch('http://127.0.0.1:8000/workers/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${localStorage.getItem('token')}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setWorkers(data);
-        setLoading(false);
-      });
-
       fetch('http://127.0.0.1:8000/entrances/', {
       method: 'GET',
       headers: {
