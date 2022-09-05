@@ -57,42 +57,6 @@ export default function Workers() {
 
   return (
     <React.Fragment>
-      <Title>Workers</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            {/* <TableCell>Start Date</TableCell> */}
-            <TableCell>Name</TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell>TCK</TableCell>
-            <TableCell align="right">Age</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {loading === false && (
-        workers.length > 0 ? (
-            workers.map(function(worker, index) {
-              return (
-            <TableRow key={worker.id}>
-              {/* {worker.createddate !== null ? (
-                <TableCell>{format(new Date(worker.createddate), 'dd/MM/yyyy')}</TableCell>
-              ): (
-                <TableCell>Unknown</TableCell>
-              )} */}
-              <TableCell>{worker.firstname}</TableCell>
-              <TableCell>{worker.lastname}</TableCell>
-              <TableCell>{worker.tck}</TableCell>
-              <TableCell align="right">{`${worker.age}`}</TableCell>
-            </TableRow>
-              )})
-        ) : (
-          <div>No access.</div>
-        )
-
-
-      )}
-        </TableBody>
-      </Table>
       <Title>Entrances</Title>
       <Table size="small">
         <TableHead>

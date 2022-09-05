@@ -10,7 +10,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={() => window.location.replace('http://localhost:3000/')}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>

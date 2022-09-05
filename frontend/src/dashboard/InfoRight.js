@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 
 function preventDefault(event) {
   event.preventDefault();
+  window.location.replace('http://localhost:3000/workers')
 }
 
 export default function InfoRight() {

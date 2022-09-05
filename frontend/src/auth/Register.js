@@ -3,33 +3,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Sistem AL
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
 
 
 const theme = createTheme();
@@ -78,15 +61,6 @@ export default function Register() {
             form_data.append(name, data[name]);
           }
         form_data.append("address", selectedAddress)
-        // form_data.append("firstname", data.firstname);
-        // form_data.append("lastname", data.lastname);
-        // form_data.append("tck", data.tck);
-        // form_data.append("phonenumber", data.phonenumber);
-        // form_data.append("age", data.age);
-        // form_data.append("address", data.address);
-        // form_data.append("photourl", data.photourl);
-        // form_data.append("email", data.email);
-        
         return form_data
     };
     const handleChange = ({ currentTarget: input }) => {
@@ -128,8 +102,7 @@ export default function Register() {
         };
     
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
@@ -288,8 +261,7 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        
       </Container>
-    </ThemeProvider>
   );
 }

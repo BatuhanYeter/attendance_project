@@ -1,4 +1,7 @@
-import * as React from 'react';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,12 +9,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import { useState, useEffect} from 'react';
-import {useNavigate} from "react-router-dom"
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,6 +32,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+
 
 export default function WorkerList() {
   const [workers, setWorkers] = useState([]);
@@ -113,17 +115,25 @@ export default function WorkerList() {
             ))}
         </TableBody>
       </Table>
-      
+          
       <Button
-            onClick={()=>navigate("/entrances", {state:{id: selectedValue }})}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            >
-            Get Entrances
+        onClick={()=>navigate("/entrances", {state:{id: selectedValue }})}
+        type="submit"
+        // fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        >
+        Get Entrances
       </Button>
     </TableContainer>
+      
+      
+      
+    
+      
+    
+    
+    
     
   );
 }
