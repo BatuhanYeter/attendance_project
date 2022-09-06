@@ -45,7 +45,7 @@ export default function EntranceList(props) {
   async function fetchData() {
     var token = localStorage.getItem('token')
     console.log("id: " + workerId)
-    if (token !== null) {
+    if (token === null) {
             console.log("token: "+ token)
             window.location.replace('http://localhost:3000/login');
         } else {

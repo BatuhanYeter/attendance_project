@@ -9,13 +9,9 @@ import Title from './Title';
 
 import { useState, useEffect} from 'react';
 
-
-
 function preventDefault(event) {
   event.preventDefault();
 }
-
-
 
 export default function Workers() {
   const [entrances, setEntrances] = useState([]);

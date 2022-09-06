@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import * as React from 'react';
 
 
@@ -23,6 +24,12 @@ export const mainListItems = (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Add Worker" />
+    </ListItemButton>
+    <ListItemButton onClick={() => window.location.replace('http://localhost:3000/delete')}>
+      <ListItemIcon>
+        <PersonRemoveIcon />
+      </ListItemIcon>
+      <ListItemText primary="Delete A Worker" />
     </ListItemButton>
     <ListItemButton onClick={() => window.location.replace('http://localhost:3000/workers')}>
       <ListItemIcon>

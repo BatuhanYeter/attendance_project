@@ -50,7 +50,7 @@ export default function WorkerList() {
 
   async function fetchData() {
     var token = localStorage.getItem('token')
-    if (token !== null) {
+    if (token === null) {
             console.log("token: "+ token)
             window.location.replace('http://localhost:3000/login');
         } else {

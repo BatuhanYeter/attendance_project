@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
+import Delete from './auth/Delete';
 import Login from './auth/Login';
 import Logout from './auth/Logout';
 import Register from './auth/Register';
@@ -173,6 +174,7 @@ const App
               <Route component={Login} path="/login" element={<Login/>} />
               <Route component={Logout} path="/logout" element={<Logout/>} />
               <Route component={Register} path="/register" element={<Register/>} />
+              <Route component={Delete} path="/delete" element={<Delete/>} />
               <Route component={WorkerList} path="/workers" element={<WorkerList/>} />
               <Route component={EntranceList} path="/entrances" element={<EntranceList/>} />
               <Route component={Dashboard} path="/" element={<Dashboard/>} exact />
