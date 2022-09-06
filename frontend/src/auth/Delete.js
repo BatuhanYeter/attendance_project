@@ -40,9 +40,11 @@ export default function Delete() {
                 if(res.status === 301) {
                     alert("Delete success!")
                     window.location.replace('http://localhost:3000/');
+                } else if(res.status === 400) {
+                    alert("No worker found with the given ID!")
                 }
               })
-              .catch((err) => alert(err));
+              .catch((err) => alert("Error occured! " + err));
         } else {
             alert("Please enter an ID!")
         }

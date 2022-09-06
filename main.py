@@ -123,9 +123,10 @@ class RegisterWindow(QtWidgets.QMainWindow):
             
             status = cv2.imwrite(f'{path}/{photo_uuid}.jpg', resized)
             
+            photo_url = f"images/{photo_uuid}"
             print("address id: ", address_id)
             if status == True:
-                result = db.create_user(self.lastname, self.firstName, self.age, self.tck, photo_uuid, self.email, self.phone_number, address_id)
+                result = db.create_user(self.lastname, self.firstName, self.age, self.tck, photo_url, self.email, self.phone_number, address_id)
                 if result == 1:    
                     messagebox.showinfo("Registered", f'Welcome aboard, {self.firstName}!')
                 else:

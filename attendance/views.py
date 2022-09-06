@@ -17,6 +17,17 @@ from rest_framework import permissions
 import json
 
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.filters import BaseFilterBackend
+import coreapi
+
+class SimpleFilterBackend(BaseFilterBackend):
+    def get_schema_fields(self, view):
+        return [coreapi.Field(
+            name='query',
+            location='query',
+            required=False,
+            type='string'
+        )]
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -35,7 +46,9 @@ class WorkersListView(
 ):
     serializer_class = serializers.WorkerSerializer
     parser_classes = (MultiPartParser, FormParser)
+    filter_backends = (SimpleFilterBackend,)
     # permission_classes = [permissions.IsAuthenticated]
+    
     def get(self, request, id=None):
         if id:
             try:
@@ -59,6 +72,20 @@ class WorkersListView(
         return Response(create_serializer.errors, status=400)
 
     def put(self, request, id=None):
+        """
+        ...
+
+        ---
+        parameters:
+        - name: body
+        description: JSON object containing two strings: password and username.
+        required: true
+        paramType: body
+        pytype: WorkerSerializer
+        """
+        ...
+        
+        
         try:
             worker = models.Workers.objects.get(id=id)
         except models.Workers.DoesNotExist:

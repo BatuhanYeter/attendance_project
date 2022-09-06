@@ -91,11 +91,11 @@ def deleteWorkerById(id):
         cursor = conn.cursor()
         
         cursor.execute(
-            'select PhotoId from Workers where id=?',
+            'select PhotoUrl from Workers where id=?',
             (id)
         )
         photo_uuid = cursor.fetchone()
-        path = "./images"
+        path = "./media"
         
         
         if os.path.exists(f'{path}/{photo_uuid[0]}.jpg'):
