@@ -26,6 +26,7 @@ import Dashboard from './dashboard/Dashboard';
 import EntranceList from './dashboard/Entrances';
 import { mainListItems, secondaryListItems } from './dashboard/listItems';
 import WorkerList from './dashboard/WorkerList';
+import DeletedWorkersList from './dashboard/DeletedWorkers';
 
 function Copyright(props) {
   return (
@@ -177,6 +178,7 @@ const App
               <Route component={Delete} path="/delete" element={<Delete/>} />
               <Route component={WorkerList} path="/workers" element={<WorkerList/>} />
               <Route component={EntranceList} path="/entrances" element={<EntranceList/>} />
+              <Route component={DeletedWorkersList} path="/deleted-workers" element={<DeletedWorkersList/>} />
               <Route component={Dashboard} path="/" element={<Dashboard/>} exact />
             </Routes>
           </Router>

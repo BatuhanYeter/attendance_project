@@ -23,6 +23,8 @@ urlpatterns = [
   
   path('address/', views.AddressListView.as_view()),
   
+  path('deleted-workers/', views.DeletedWorkersListView.as_view()),
+  
   path("api-auth/", include("rest_framework.urls")), 
   path('rest-auth/', include('dj_rest_auth.urls')),
   

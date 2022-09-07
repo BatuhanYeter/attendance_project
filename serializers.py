@@ -59,7 +59,24 @@ class WorkerSerializer(serializers.ModelSerializer):
         return instance
     
     
-        
+
+class DeletedWorkerSerializer(serializers.ModelSerializer):
+    addressid = AddressSerializer()
+    
+    class Meta:
+        model = models.Deletedworkers
+        fields = [
+            'id',
+            'old_id',
+            'lastname',
+            'firstname',
+            'tck',
+            'phonenumber',
+            'addressid',
+            'deletedate'
+        ]
+        verbose_name = 'Deleted Workers'
+        verbose_name_plural = 'Deleted Workers'     
 
 
 class EntranceSerializer(serializers.ModelSerializer):

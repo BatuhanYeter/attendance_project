@@ -121,9 +121,18 @@ export default function WorkerList() {
         type="submit"
         // fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: 3, mb: 2, ml: 3 }}
         >
         Get Entrances
+      </Button>
+      <Button
+        onClick={()=>navigate("/deleted-workers")}
+        type="submit"
+        // fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2, ml: 3 }}
+        >
+        Get Deleted Workers
       </Button>
     </TableContainer>
       

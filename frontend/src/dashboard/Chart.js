@@ -5,88 +5,32 @@ import Title from './Title';
 
 import { useEffect, useState } from 'react';
 
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
 
-export default function Chart() {
+
+export default function Chart(props) {
   const theme = useTheme();
-  const [morningShift, setMorningShiftEntrances] = useState(0);
-  const [eveningShift, setEveningShiftEntrances] = useState(0);
-  const [nightShift, setNightShiftEntrances] = useState(0);
-  const [chartData, setChartData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-async function fetchData() {
-  await fetch('http://127.0.0.1:8000/entrances/', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Token ${localStorage.getItem('token')}`
+  let [chartData, setChartData] = useState([])
+  
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("fetched data: ", props.chartData)
+      let data = await props.chartData
+      console.log("let data: ", data)
+      setChartData(data)
+      console.log("chart data: ", chartData)
     }
-  })
-    .then(res => res.json())
-    .then(data => {
-      var shiftMor = 0;
-      var shiftEve = 0;
-      var shiftNig = 0;
 
-      var midday = 0;
-      var evening = 0;
+    fetchData()
+  }, [chartData]);
 
-      
-      data.map(function(entrance, index) {
-        const date = new Date(entrance.createddate).getUTCHours()
-        
-        console.log(index + "------->" + date)
-        if (date >= 7 && date <= 9) {
-            shiftMor += 1;
-        } else if (date >= 9 && date <= 16) {
-            midday += 1;
-        } else if (date >= 16 && date <= 18) {
-            shiftEve += 1;
-        } else if (date >= 18 && date <= 23) {
-            evening += 1;
-        } else {
-            shiftNig += 1;
-        }
-        
-        // {format(new Date(entrance.createddate), 'dd/MM/yyyy')}
-      })
-      setMorningShiftEntrances(shiftMor)
-      setEveningShiftEntrances(shiftEve)
-      setNightShiftEntrances(shiftNig)
-      
-      const cntShiftToChart = [ 
-        createData('00:00 - 07:00', 0),
-        createData('07:00 - 09:00', morningShift),
-        createData('09:00 - 16:00', midday),
-        createData('16:00 - 18:00', eveningShift),
-        createData('18:00 - 23:00', evening),
-        createData('23:00 - 24:00', nightShift),
-      ];
-      setChartData(cntShiftToChart)
-      setLoading(false)
-    });
-}
-
-useEffect(() => {
-  if (localStorage.getItem('token') === null) {
-    // console.log("This worked")
-    window.location.replace('http://localhost:3000/login');
-  } else {
-      // console.log("This worked: fetch")
-      fetchData()
-      console.log(chartData)
-  }
-}, []);
-
+  console.log(chartData)
   return (
     <React.Fragment>
       <Title>Today</Title>
-      {loading === false && (
+      {/* {chartData.length > 0 && ( */}
       <ResponsiveContainer>
+      {/* {chartData.length > 0 && ( */}
           <LineChart
           data={chartData}
           margin={{
@@ -125,8 +69,8 @@ useEffect(() => {
             dot={false}
           />
         </LineChart>
+        {/* )} */}
       </ResponsiveContainer>
-      )}
     </React.Fragment>
   );
 }

@@ -17,17 +17,13 @@ from rest_framework import permissions
 import json
 
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.filters import BaseFilterBackend
-import coreapi
+from django_filters.rest_framework.filterset import FilterSet
 
-class SimpleFilterBackend(BaseFilterBackend):
-    def get_schema_fields(self, view):
-        return [coreapi.Field(
-            name='query',
-            location='query',
-            required=False,
-            type='string'
-        )]
+class WorkerFilter(FilterSet):
+    class Meta(object):
+        models = models.Workers
+        fields = (
+            'firstname', 'lastname', 'age', 'phone')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -36,7 +32,7 @@ schema_view = get_schema_view(
       description="Test description",
    ),
    public=True,
-   permission_classes=[permissions.AllowAny],
+   permission_classes=[permissions.IsAuthenticated],
 )
 
 class WorkersListView(
@@ -46,7 +42,7 @@ class WorkersListView(
 ):
     serializer_class = serializers.WorkerSerializer
     parser_classes = (MultiPartParser, FormParser)
-    filter_backends = (SimpleFilterBackend,)
+    filter_class = WorkerFilter
     # permission_classes = [permissions.IsAuthenticated]
     
     def get(self, request, id=None):
@@ -73,15 +69,21 @@ class WorkersListView(
 
     def put(self, request, id=None):
         """
-        ...
-
+        Your docs
         ---
+        # YAML (must be separated by `---`)
+        serializer: WorkerSerializer
+
         parameters:
-        - name: body
-        description: JSON object containing two strings: password and username.
+        - name: some_param
+        description: Foobar long description goes here
         required: true
-        paramType: body
-        pytype: WorkerSerializer
+        type: integer
+        paramType: form
+        - name: other_foo
+        paramType: query
+        - name: avatar
+        type: file
         """
         ...
         
@@ -166,6 +168,17 @@ class AddressListView(
     def get(self, request):
         queryset = models.Addresses.objects.all()
         read_serializer = serializers.AddressSerializer(queryset, many=True)
+
+        return Response(read_serializer.data)
+    
+    
+class DeletedWorkersListView(
+    APIView
+):
+    serializer_class = serializers.DeletedWorkerSerializer
+    def get(self, request):
+        queryset = models.Deletedworkers.objects.all()
+        read_serializer = serializers.DeletedWorkerSerializer(queryset, many=True)
 
         return Response(read_serializer.data)
 
