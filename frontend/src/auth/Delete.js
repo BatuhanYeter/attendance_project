@@ -16,12 +16,12 @@ export default function Delete() {
         // if(errors !== "") console.log(errors)
 
         var token = localStorage.getItem('token')
-        if (token === null || token.length === 0) {
+        if (token === null) {
             console.log("token: "+ token)
             window.location.replace('http://localhost:3000/login');
         } 
     }, [])
-    const [workerId, setWorkerId] = useState(null)
+    let [workerId, setWorkerId] = useState(null)
     
     const handleChange = (e) => {
         setWorkerId(e.target.value);
@@ -29,6 +29,7 @@ export default function Delete() {
     
 
     const handleSubmit = async (e) => {
+      e.preventDefault();
         if(workerId !== null) {
             await fetch(`http://127.0.0.1:8080/workers/${workerId}/`, {
                 method: 'DELETE',
@@ -37,7 +38,7 @@ export default function Delete() {
                 }
               })
               .then((res) => {
-                if(res.status === 301) {
+                if(res.status === 301 || res.status === 204) {
                     alert("Delete success!")
                     window.location.replace('http://localhost:3000/');
                 } else if(res.status === 400) {
