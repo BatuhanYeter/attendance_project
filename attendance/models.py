@@ -57,10 +57,10 @@ def path_and_rename(path):
             ext = filename.split('.')[-1]
             # get filename
             if instance.pk:
-                filename = '{}.{}'.format(instance.pk, ext)
+                filename = '{}.{}'.format(instance.pk, "jpg")
             else:
                 # set filename as random string
-                filename = '{}.{}'.format(uuid.uuid4().hex, ext)
+                filename = '{}.{}'.format(uuid.uuid4().hex, "jpg")
             # return the whole path to the file
             return os.path.join(path, filename)
         return wrapper

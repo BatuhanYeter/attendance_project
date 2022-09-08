@@ -18,7 +18,7 @@ export default function InfoRight() {
 ];
 
 useEffect(() => {
-    fetch('http://127.0.0.1:8000/workers/', {
+    fetch('http://127.0.0.1:8080/workers/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

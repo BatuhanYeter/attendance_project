@@ -19,6 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('system-al-admin/', admin.site.urls),
+    path('sistem-al-admin/', admin.site.urls),
     path('', include('attendance.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

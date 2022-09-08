@@ -23,7 +23,7 @@ export default function Register() {
             window.location.replace('http://localhost:3000/login');
         } else {
             console.log("token: "+ token)
-            fetch('http://127.0.0.1:8000/address/', {
+            fetch('http://127.0.0.1:8080/address/', {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Register() {
         e.preventDefault();
         var form_data = createMyModelEntry(data)
         // console.log("url" + form_data.get("photourl"))
-        await fetch('http://127.0.0.1:8000/workers/', {
+        await fetch('http://127.0.0.1:8080/workers/', {
             method: 'POST',
             headers: {
               Authorization: `Token ${localStorage.getItem('token')}`

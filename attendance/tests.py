@@ -1,30 +1,13 @@
-from django.test import TestCase
-
-# Create your tests here.
-from django.test import TestCase
+from rest_framework.test import APIRequestFactory
+from rest_framework.test import force_authenticate
 from django.contrib.auth.models import User
-import json
+from . import views
+factory = APIRequestFactory()
+user = User.objects.get(username='Batu')
+view = views.WorkersListView.as_view()
 
-test_users = [
-    {"username": "testuser1", "password": "testpassword1"},
-    {"username": "testuser2", "password": "testpassword2"},
-]
-
-class LoginTest(TestCase):
-    def setUp(self):
-        for user in test_users:
-            new_user = User.objects.create(username=user["username"])
-            new_user.set_password(user["password"])
-            new_user.save()
-
-    def test_login(self):
-        USER1 = test_users[0]
-        res = self.client.post('/api/token/',
-                               data=json.dumps({
-                                   'username': USER1["username"],
-                                   'password': USER1["password"],
-                               }),
-                               content_type='application/json',
-                               )
-        result = json.loads(res.content)
-        self.assertTrue("access" in result)
+# Make an authenticated request to the view...
+request = factory.get('/workers/')
+force_authenticate(request, user=user)
+response = view(request)
+print(response)

@@ -44,7 +44,7 @@ export default function DeletedWorkersList() {
             console.log("token: "+ token)
             window.location.replace('http://localhost:3000/login');
         } else {
-            await fetch(`http://127.0.0.1:8000/deleted-workers/`, {
+            await fetch(`http://127.0.0.1:8080/deleted-workers/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

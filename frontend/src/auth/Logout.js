@@ -14,7 +14,7 @@ const Logout = () => {
   const handleLogout = e => {
     e.preventDefault();
 
-    fetch('http://127.0.0.1:8000/rest-auth/logout/', {
+    fetch('http://127.0.0.1:8080/rest-auth/logout/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

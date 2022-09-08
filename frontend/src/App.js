@@ -182,11 +182,11 @@ const App
               <Route component={Dashboard} path="/" element={<Dashboard/>} exact />
             </Routes>
           </Router>
-          <Copyright sx={{ pt: 4 }} />
+          
           </Container>
         </Box>
       </Box>
-      
+      <Copyright sx={{ pt: 4, mb: 3 }} />
     </ThemeProvider>
     
   )

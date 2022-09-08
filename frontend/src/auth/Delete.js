@@ -30,7 +30,7 @@ export default function Delete() {
 
     const handleSubmit = async (e) => {
         if(workerId !== null) {
-            await fetch(`http://127.0.0.1:8000/workers/${workerId}/`, {
+            await fetch(`http://127.0.0.1:8080/workers/${workerId}/`, {
                 method: 'DELETE',
                 headers: {
                   Authorization: `Token ${localStorage.getItem('token')}`

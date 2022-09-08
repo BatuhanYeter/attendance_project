@@ -17,7 +17,7 @@ export default function Workers() {
   const [entrances, setEntrances] = useState([]);
   const [loading, setLoading] = useState(true);
   async function fetchData() {
-      fetch('http://127.0.0.1:8000/entrances/', {
+      fetch('http://127.0.0.1:8080/entrances/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -32,7 +32,7 @@ export default function Login() {
           password: password
         };
     
-        fetch('http://127.0.0.1:8000/rest-auth/login/', {
+        fetch('http://127.0.0.1:8080/rest-auth/login/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

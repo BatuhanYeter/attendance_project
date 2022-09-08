@@ -50,7 +50,7 @@ export default function EntranceList(props) {
             window.location.replace('http://localhost:3000/login');
         } else {
             console.log("trying to get: "+ workerId)
-            await fetch(`http://127.0.0.1:8000/entrances/${workerId}`, {
+            await fetch(`http://127.0.0.1:8080/entrances/${workerId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export default function EntranceList(props) {
                 var date = new Date(entrance.createddate)
                 return (
                 <StyledTableRow key={entrance.id}>
-                    <StyledTableCell align="right">{entrance.worker.id}</StyledTableCell>
+                    <StyledTableCell>{entrance.worker.id}</StyledTableCell>
                     <StyledTableCell align="right">{`${entrance.worker.firstname} ${entrance.worker.lastname}`}</StyledTableCell>
                     <StyledTableCell align="right">{date.toUTCString()}</StyledTableCell>
                 </StyledTableRow>
