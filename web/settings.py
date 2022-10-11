@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,9 +37,9 @@ INSTALLED_APPS = [
     "corsheaders",
     'drf_yasg',
     'dj_rest_auth',
-    'allauth',    
+    'allauth',
     'django_cleanup.apps.CleanupConfig',
-    
+
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,13 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-AUTHENTICATION_BACKENDS = (    
-    "django.contrib.auth.backends.ModelBackend",    
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
-                        )
+)
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -99,9 +100,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'attendance',
-        "HOST": "KAL-COR-17",
+        "HOST": "LAPTOP-M3NVAC69",
         "OPTIONS": {
-            "driver": "ODBC Driver 17 for SQL Server", 
+            "driver": "ODBC Driver 17 for SQL Server",
         },
     }
 }
@@ -140,7 +141,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-import os
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
@@ -154,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-    'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
